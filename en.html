@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Car Dealer Carl Christensen</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+    <style>
+        .marker {
+            background-image: url('mapbox-icon.png');
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+.mapboxgl-popup {
+  max-width: 400px;
+}
+
+.mapboxgl-popup-content {
+  text-align: justify;
+    font-size: 2.3em;
+}
+        body {
+            background: #ffc400;
+            font-size: 2.7em;
+            text-align: justify;
+            font-family: 'Playfair Display', serif;
+        }
+
+        #map {
+            position: relative;
+            top: 0;
+            width: 100%;
+            height: 400px;
+            bottom: 0;
+        }
+
+        .wrapper {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 520px;
+        }
+
+        .slidel {
+            position: absolute;
+            left: -100%;
+            width: 100%;
+            height: 100px;
+            -webkit-animation: slide 0.5s forwards;
+            -webkit-animation-delay: 2s;
+            animation: slidel 0.5s forwards;
+            animation-delay: 0.3s;
+        }
+
+        .slider {
+            position: absolute;
+            right: -130%;
+            width: 100%;
+            height: 100px;
+            -webkit-animation: slide 0.5s forwards;
+            -webkit-animation-delay: 2s;
+            animation: slider 0.5s forwards;
+            animation-delay: 1.05s;
+        }
+
+        @-webkit-keyframes slidel {
+            100% {
+                left: 0;
+            }
+        }
+
+        @keyframes slidel {
+            100% {
+                left: 0;
+            }
+        }
+
+        @-webkit-keyframes slider {
+            100% {
+                right: 0;
+            }
+        }
+
+        @keyframes slider {
+            100% {
+                right: 0;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1 class="slidel" style="position: relative; text-align: center;">Car Dealer Carl Christensen</h1><br>
+        <p class="slidel">In the 1920s, bicycles, motorcycles and automobiles were no longer toys for rich.</p>
+    </div>
+    <div class="wraper"><img class="slider" src="shop1.jpg" style="width: 100%; height: 400px;position: relative;"></div>
+    <div class="wrapper">
+        <p class="slidel">They were now means of transport that changed the street scene in Denmark forever. At the same time, the car is a unique strong time marker. The exhibition contains three of the best-selling cars of that time. A Fort T Cope from 1927, a Ford Sedan from 1926 and a Citroën Køverblad from 1925.</p>
+    </div>
+    <div class="wraper"><br><img class="slider" src="shop2.jpg" style="width: 100%; height: 400px;position: relative;"></div>
+    <div class="wrapper">
+        <p class="slidel"><strong>The building is inspired by Hillerød Motor Co.'s</strong><br>
+            The auto dealer's exhibition and workshop is located in a brand new building, which is inspired by Hillerød Motor Co's building from 1927. Here are three cars and a workshop where you can see among other things the shop's crane car, a Ford TT from 1924. Filebanks and tool boards are in this room has been recreated by the original pictures</p>
+    </div>
+    <div class="wrapper">
+        <p class="slider">The bicycle workshop, where you have to imagine that the auto dealer started his business and a workshop for motor renovation, is arranged in a back house and backyard for one of the houses already located in Den Gamle By.<br>
+            <strong>The automotive business is funded by the CAC Fund.</strong>
+
+
+        </p>
+    </div>
+    <div class="wraper">
+        <h2 class="slider" style="position: relative;text-align: center;">LOCATION</h2>
+    </div>
+    <div class="wraper">
+        <p class="slidel" id='map' style=""></p>
+    </div>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYmFkb21pbmlrIiwiYSI6ImNqdGd3a2dlcTA1ano0N3F6eHVoeW9qdDMifQ.3hVtRX-iA0EqG3j7vdb3Ig';
+
+
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/badominik/cjtzix2fr1bkh1fql9c4jko4w',
+            center: [10.192516, 56.158922],
+            zoom: 17.23
+        });
+
+        var geojson = {
+            type: 'FeatureCollection',
+            features: [{
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [10.192516, 56.158922]
+                },
+                properties: {
+                    title: 'Car Dealer Carl Christensen',
+                }
+            }, ]
+        };
+geojson.features.forEach(function(marker) {
+
+  // create a HTML element for each feature
+  var el = document.createElement('div');
+  el.className = 'marker';
+
+  // make a marker for each feature and add to the map
+  new mapboxgl.Marker(el)
+    .setLngLat(marker.geometry.coordinates)
+      .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+    .setHTML('<p><strong>' + marker.properties.title + '</strong></p>'))
+    .addTo(map);
+});
+    </script>
+</body>
+
+</html>

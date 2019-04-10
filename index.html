@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VisitAarhus Prototype</title>
+    <script src="anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+    <style>
+        body{background: #ffc400; font-size: 4em;
+                    font-family: 'Anton', sans-serif;
+        letter-spacing: 2px;}
+        polygon {filter: url(" #displacementFilter "); background-image: url(logo.png); transform: scale(1);}
+        .grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+.grid-item {
+
+  text-align: center;
+}
+a:link {
+  color: black;
+    text-decoration: none;
+}
+a:visited {
+  color: black;
+    text-decoration: none;
+}
+
+a:hover {
+  color: black;
+    text-decoration: none;
+}
+
+a:active {
+  color: gray;
+    text-decoration: none;
+}
+        .opacity {opacity: 0;
+            border-style: solid;
+            border-width: 10px;
+            border-radius: 12px;
+        -webkit-animation: appear 1s forwards;
+            -webkit-animation-delay: 1.8s;
+            animation: appear 1s forwards;
+            animation-delay: 1.8s;
+        animation-timing-function: cubic-bezier(0.420, 0.860, 0.830, -0.160)}
+                @-webkit-keyframes appear {
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes appear {
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-content align-center svg-attributes-demo grid-item"><br>
+        <svg width="100%" height="40%" viewBox="0 0 128 128">
+            <defs>
+                <pattern id="img1" patternUnits="userSpaceOnUse" width="100px" height="100px">
+                    <image class='twombly' xlink:href="https://i.imgur.com/G9oB2IW.png" x="27.5" y="0" width="55%" height="135px" />
+                </pattern>
+
+            </defs>
+            <filter id="displacementFilter">
+                <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="turbulence" style="transform: scale(1);"></feTurbulence>
+                <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="15" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+            </filter>
+            <polygon points="64 68 8.574 100 64 68 64 4 64 68 119.426 100" fill="url(#img1)"></polygon>
+
+        </svg>
+        <br><br>
+    </div>
+    <div class="grid-container">
+        <a href="en.html"><div class="grid-item opacity"><strong>ENGLISH</strong></div></a>
+        <div class="grid-item"><strong></strong></div>
+        <a href="dk.html"><div class="grid-item opacity"><strong>DANSK</strong></div></a>
+    </div>
+    <script>
+        anime({
+            targets: ['.svg-attributes-demo polygon', 'feTurbulence', 'feDisplacementMap'],
+            points: '64 128 8.574 96 8.574 32 64 0 119.426 32 119.426 96',
+            baseFrequency: 0,
+            scale: 1,
+            loop: false,
+            duration: 3000,
+            delay: 500,
+            direction: 'alternate',
+            easing: 'easeInOutQuint'
+        });
+
+    </script>
+</body>
+
+</html>
